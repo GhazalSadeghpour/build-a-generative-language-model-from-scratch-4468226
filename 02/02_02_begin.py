@@ -42,8 +42,14 @@ class NaiveBayesClassifier:
         pos = []
         neg = []
 
+        for token in tokens:
+            pos.append(self.pos_counter[token]/self.sample_count)
+            neg.append(self.neg_counter[token]/self.sample_count)
 
 
+        if (sum(pos) > sum(neg)): return "pos"
+        elif (sum(pos) < sum(neg)): return "neg"
+        else: return "neutral"
 
 cl = NaiveBayesClassifier(post_comments_with_labels)
 
@@ -53,3 +59,11 @@ show_hints = False
 def get_sentiment(text):
     cl = NaiveBayesClassifier(post_comments_with_labels)
     return cl.classify(text)
+
+
+# This is how your code will be called.
+# Your answer should be the largest value in the numbers list.
+# You can edit this code to try different testing cases.
+text = "Love this post"
+result = Answer.get_sentiment(text)
+print(result)
